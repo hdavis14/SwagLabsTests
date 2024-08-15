@@ -19,10 +19,10 @@ import Pages.ProductsPage;
 import Pages.ProductItemPage;
 import Pages.ShoppingCartPage;
 import Pages.YourInformationPage;
+import Pages.OverviewPage;
+import Pages.OrderCompletedPage;
 
 import java.time.Duration;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SauceLabsCucumber {
     //Build base url
@@ -130,18 +130,27 @@ public class SauceLabsCucumber {
     public void user_navigates_to_the_overview_page_and_clicks_finish() {
         System.out.println("user is navigated to the overview page and clicks finish");
         //Review Overview page and click finish
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement finishButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@class, 'btn_action cart_button')]")));
-        assertTrue(finishButton.isDisplayed());
-        finishButton.click();
+        OverviewPage overviewPage = new OverviewPage(driver);
+        // Wait for overview page to load
+        overviewPage.waitOverviewPage();
+        //Assert that overview page has loaded
+        overviewPage.assertOverviewPageHasLoaded();
+        //Click Finish Button
+        overviewPage.clickFinishButton();
     }
 
     @And("user completes order")
     public void user_completes_order() {
+         System.out.println("user completes order");
         //Order Completed
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement orderCompletePage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@id,'checkout_complete_container')]/h2")));
-        assertTrue(orderCompletePage.isDisplayed());
+        OrderCompletedPage orderCompletedPage = new OrderCompletedPage(driver);
+        // Wait for order completed page to load
+        orderCompletedPage.waitOrderCompletedPage();
+        //Assert that order completed page has loaded
+        orderCompletedPage.assertOrderCompletedPageHasLoaded();
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        WebElement orderCompletePage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@id,'checkout_complete_container')]/h2")));
+//        assertTrue(orderCompletePage.isDisplayed());
         driver.close();
 
         }
