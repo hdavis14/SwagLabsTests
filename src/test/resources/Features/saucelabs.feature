@@ -44,10 +44,10 @@ Feature: feature to test Sauce Labs website
     Given user is on login page
     When login with no credentials
     And user enters "<username>" and "<password>"
-    And the error message matches "<error_message>"
+    And the error message matches <error_message>
     Examples:
-      |tcNo | Description                                                       | username      | password     | error_message|
-      |SC02 | User enters invalid credentials and returns a valid error message | standard_user | secret_sauce |              |
+      |tcNo | Description                                                       | error_message|
+      |SC02 | User enters invalid credentials and returns a valid error message |              |
 
 #  Scenario Outline: Test 1: Order a product and checkout: <tcNo>
 #    Given user is on login page
