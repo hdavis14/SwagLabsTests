@@ -21,8 +21,12 @@ import Pages.ShoppingCartPage;
 import Pages.YourInformationPage;
 import Pages.OverviewPage;
 import Pages.OrderCompletedPage;
+import Pages.AboutPage;
 
 import java.time.Duration;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SauceLabsCucumber {
     //Build base url
@@ -68,6 +72,20 @@ public class SauceLabsCucumber {
         LoginPage.getLogin_button(driver).click();
     }
 
+    @And("login with no credentials")
+    public void login_with_no_credentials() {
+        System.out.println("clicks on the login button");
+        //Click the login button
+        LoginPage.getLogin_button(driver).click();
+        WebElement errorMessage = driver.findElement(By.xpath("//*[@id='login_button_container']/div"));
+
+        String textToRetrieve = errorMessage.getAttribute("innerText");
+        System.out.println(textToRetrieve);
+//        String actualError = errorMessage.getAttribute("text");
+//        String expectedError = "Invalid username or password";
+//        assertEquals(actualError, expectedError);
+    }
+
     @And("user is navigated to the home page and selects a product")
     public void user_is_navigated_to_the_home_page_selects_a_product() {
         System.out.println("user is navigated to the home page and selects a product");
@@ -96,6 +114,7 @@ public class SauceLabsCucumber {
         productItemPage.clickShopCartLink();
 
     }
+
     @And("user navigates to shopping cart and checkout")
     public void user_navigates_to_shopping_cart_and_checkout() {
         System.out.println("user navigates to shopping cart and checkout");
@@ -109,6 +128,16 @@ public class SauceLabsCucumber {
         shoppingCartPage.clickCheckoutButton();
     }
 
+    @And("user navigates to shopping cart")
+    public void user_navigates_to_shopping_cart() {
+        System.out.println("user navigates to shopping cart and checkout");
+        //Click on shopping cart link
+        ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver);
+        // Wait for shopping cart page to load
+        shoppingCartPage.waitShoppingCartPage();
+        //Assert that shopping cart has loaded
+        shoppingCartPage.assertShoppingCartPageHasLoaded();
+    }
     @And("^user enters (.*), (.*) and (.*) then clicks continue$")
     public void user_enters_firstname_lastname_and_postcode (String firstname, String lastname, String postcode) {
         System.out.println("user enters customer information");
@@ -138,6 +167,48 @@ public class SauceLabsCucumber {
         //Click Finish Button
         overviewPage.clickFinishButton();
     }
+    @Then("user removes product from the shopping cart")
+    public void user_removes_item_from_shopping_cart() {
+        System.out.println("user removes product from the shopping cart");
+        //Remove product
+        ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver);
+         //wait for shopping cart to load
+        shoppingCartPage.waitShoppingCartPage();
+        //Remove item from shopping cart
+        shoppingCartPage.clickRemoveButton();
+
+    }
+    @And("user selects about link")
+    public void user_selects_about_link() {
+        System.out.println("user selects about link");
+        ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver);
+        //Click side menu
+        shoppingCartPage.clickMenuButton();
+        //Selects about link
+        shoppingCartPage.clickAboutLink();
+
+    }
+    @And("user is on the about page")
+    public void user_is_on_the_about_page() {
+        System.out.println("user selects about link");
+        AboutPage aboutPage = new AboutPage(driver);
+        //On about page
+        aboutPage.waitAboutPage();
+        //Assert about page
+        aboutPage.assertAboutPageHasLoaded();
+        driver.close();
+    }
+
+    @And("user logs out")
+    public void user_logs_out() {
+        System.out.println("user logs out");
+        ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver);
+        //Click side menu
+        shoppingCartPage.clickMenuButton();
+        //Logout
+        shoppingCartPage.clickLogoutLink();
+        driver.close();
+    }
 
     @And("user completes order")
     public void user_completes_order() {
@@ -148,9 +219,6 @@ public class SauceLabsCucumber {
         orderCompletedPage.waitOrderCompletedPage();
         //Assert that order completed page has loaded
         orderCompletedPage.assertOrderCompletedPageHasLoaded();
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//        WebElement orderCompletePage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@id,'checkout_complete_container')]/h2")));
-//        assertTrue(orderCompletePage.isDisplayed());
         driver.close();
 
         }

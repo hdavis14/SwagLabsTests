@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ProductItemPage {
     WebDriver driver = null;
 
-    static By add_to_cart_button = By.xpath("//*[contains(@id, 'inventory_item_container')]");
+    static By add_to_cart_button = By.xpath("//*[contains(@class, 'btn_primary btn_inventory')]");
     static By shop_cart_link = By.id("shopping_cart_container");
 
     public ProductItemPage(WebDriver driver) {
