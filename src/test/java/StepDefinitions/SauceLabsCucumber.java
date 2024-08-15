@@ -77,13 +77,13 @@ public class SauceLabsCucumber {
         System.out.println("clicks on the login button");
         //Click the login button
         LoginPage.getLogin_button(driver).click();
-        WebElement errorMessage = driver.findElement(By.xpath("//*[@id='login_button_container']/div"));
 
-        String textToRetrieve = errorMessage.getAttribute("innerText");
-        System.out.println(textToRetrieve);
-//        String actualError = errorMessage.getAttribute("text");
-//        String expectedError = "Invalid username or password";
-//        assertEquals(actualError, expectedError);
+    }
+    @And("the error message matches (.*)")
+    public void the_error_message_matches(String expectedError) {
+        WebElement ErrorMessage = driver.findElement(By.xpath("//*[@id='login_button_container']/div"));
+        String actualError = ErrorMessage.getAttribute("innerText");
+        assertEquals(actualError, expectedError);
     }
 
     @And("user is navigated to the home page and selects a product")
