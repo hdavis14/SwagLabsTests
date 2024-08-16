@@ -2,15 +2,18 @@
 
 ###  prerequisite
 - The following much be install to run this project:
-
+````
 - Java - openjdk 21.0.4 
 - Apache Maven 3.6.3
+````
 
 ### Tech stack used for this project
-This Maven project is written in a cucumber framework based on selenium-java. The folllowing dependencies have been added to the POM.xml
+This Maven project is written in a cucumber framework based on selenium-java. The following dependencies have been added to the pom.xml
+````
 - Selenium 4.23.0
 - Junit 5.10
 - Cucumber 7.18.1
+````
 
 ### Clone the github project
 To clone project locally run the following 
