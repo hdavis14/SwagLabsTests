@@ -39,7 +39,7 @@ The cucumber project consist of the following:
 4. TestRunner - Test runner to run the tests
 
 ### Running the tests
-The tests can be run by either right-clicking on the TestRunner and select 'Run TestRunner' or creating a runtime in te IDE.
+The tests can be run by either right-clicking on the TestRunner and select 'Run TestRunner' or creating a runtime config in te IDE.
 
 
 
