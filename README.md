@@ -1,6 +1,6 @@
 ## Cucumber test framework for the SwagLabs website
 
-###  prerequisite
+###  Prerequisite
 - The following much be install to run this project:
 ````
 - Java - openjdk 21.0.4 
