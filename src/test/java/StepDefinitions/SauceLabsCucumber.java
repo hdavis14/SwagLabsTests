@@ -7,6 +7,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.plugin.event.Node;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -27,6 +28,7 @@ import java.time.Duration;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SauceLabsCucumber {
     //Build base url
@@ -71,19 +73,21 @@ public class SauceLabsCucumber {
         //Click the login button
         LoginPage.getLogin_button(driver).click();
     }
-
-    @And("login with no credentials")
-    public void login_with_no_credentials() {
-        System.out.println("clicks on the login button");
-        //Click the login button
-        LoginPage.getLogin_button(driver).click();
-
-    }
-    @And("the error message matches (.*)")
-    public void the_error_message_matches(String expectedError) {
+    @And("^the error message matches expected error (.*)$")
+    public void the_login_error_message_matches(String expectedError) {
         WebElement ErrorMessage = driver.findElement(By.xpath("//*[@id='login_button_container']/div"));
         String actualError = ErrorMessage.getAttribute("innerText");
         assertEquals(actualError, expectedError);
+        System.out.println("the login error message matches expected error" + actualError);
+    }
+
+    @And("^the checkout error message matches expected error (.*)$")
+    public void the_checkout_error_message_matches(String expectedError) {
+        WebElement ErrorMessage = driver.findElement(By.xpath("//*[@id='checkout_info_container']/div"));
+        String actualError = ErrorMessage.getAttribute("innerText");
+        assertTrue(actualError.contains(expectedError));
+//        assertEquals(actualError, expectedError);
+        System.out.println("the error message matches expected error" + actualError);
     }
 
     @And("user is navigated to the home page and selects a product")

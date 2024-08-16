@@ -5,10 +5,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class LoginPage {
+    //Login Page Object Model
     private static WebElement username_field = null;
     private static WebElement password_field = null;
     private static WebElement login_button = null;
-
+    //Page actions
     public static WebElement getUsername_field(WebDriver driver) {
        username_field = driver.findElement(By.id("user-name"));
        return username_field;

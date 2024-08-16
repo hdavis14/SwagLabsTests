@@ -10,7 +10,7 @@ import java.time.Duration;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ShoppingCartPage {
-    //Shopping cart Page Object Model
+    //Shopping Cart Page Object Model
     WebDriver driver = null;
     //Page element identifiers
     static By checkout_button = By.xpath("//*[contains(@class, 'btn_action checkout_button')]");
@@ -31,10 +31,11 @@ public class ShoppingCartPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@class, 'btn_action checkout_button')]")));
 
        }
-    // Page actions
+    // Assert that page has loaded successfully
     public void assertShoppingCartPageHasLoaded() {
             assertTrue(driver.findElement(checkout_button).isDisplayed());
        }
+    //Page Actions
     public void clickCheckoutButton(){
             driver.findElement(checkout_button).click();
         }
